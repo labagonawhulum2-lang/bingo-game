@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="am">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>አብዲ ቢንጎ</title>
+    <style>
+        body { font-family: Arial, sans-serif; text-align: center; background: #1e1e2e; color: white; padding: 10px; }
+        h1 { color: #f5c2e7; margin-bottom: 5px; }
+        .grid { display: grid; grid-template-columns: repeat(5, 1fr); gap: 5px; max-width: 350px; margin: 15px auto; }
+        .cell { background: #313244; border: 2px solid #45475a; border-radius: 8px; padding: 15px 5px; font-size: 18px; font-weight: bold; cursor: pointer; transition: 0.3s; }
+        .cell.selected { background: #a6e3a1; color: #11111b; border-color: #a6e3a1; }
+        #number-display { font-size: 24px; font-weight: bold; color: #fab387; margin: 15px; min-height: 35px; }
+        button { background: #89b4fa; border: none; padding: 12px 25px; font-size: 16px; font-weight: bold; border-radius: 8px; cursor: pointer; color: #11111b; }
+    </style>
+</head>
+<body>
+
+    <h1>🎰 አብዲ ቢንጎ 🎰</h1>
+    <p>የወጣውን ቁጥር ካርድህ ላይ እየነካህ ቢንጎ ስራ!</p>
+
+    <div id="number-display">ጨዋታውን ለመጀመር ቁልፉን ይጫኑ</div>
+    <button onclick="drawNumber()">ቁጥር አውጣ</button>
+
+    <div class="grid" id="bingo-card"></div>
+
+    <script>
+        // የቢንጎ ካርድ መፍጠሪያ (ከ1 እስከ 75 በዘፈቀደ)
+        const cardContainer = document.getElementById('bingo-card');
+        let numbers = Array.from({length: 75}, (_, i) => i + 1).sort(() => Math.random() - 0.5).slice(0, 25);
+        
+        numbers.forEach(num => {
+            const cell = document.createElement('div');
+            cell.className = 'cell';
+            cell.innerText = num;
+            cell.onclick = () => cell.classList.toggle('selected');
+            cardContainer.appendChild(cell);
+        });
+
+        // ቁጥር ማውጫ ሲስተም
+        let drawnNumbers = [];
+        function drawNumber() {
+            if(drawnNumbers.length >= 75) {
+                document.getElementById('number-display').innerText = "ሁሉም ቁጥሮች ወጥተዋል!";
+                return;
+            }
+            let randomNum;
+            do {
+                randomNum = Math.floor(Math.random() * 75) + 1;
+            } while (drawnNumbers.includes(randomNum));
+            
+            drawnNumbers.push(randomNum);
+            document.getElementById('number-display').innerText = "የወጣው ቁጥር፡ " + randomNum;
+        }
+    </script>
+</body>
+</html>

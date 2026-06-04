@@ -201,13 +201,22 @@
         document.getElementById('payment-screen').classList.add('active');
     }
 
-    function submitPayment() {
+        function submitPayment() {
         const txId = document.getElementById('tx-id').value.trim();
         if (txId.length < 5) {
             alert("እባክዎ ትክክለኛ የቴሌብር ደረሰኝ ቁጥር ያስገቡ!");
             return;
         }
         
+        // መረጃውን ይዞ ቀጥታ ወደ ቴሌግራም ቦቱ የሚወስድ ሊንክ
+        const telegramBotUrl = `https://t.me/agmbingo_bot?start=pay_${selectedCardIndex}_${txId}`;
+        
+        alert("ክፍያዎ ለባለቤቱ ሊላክ ነው! ወደ ቴሌግራም ቦቱ እንመልስዎታለን። እባክዎ ቦቱ ላይ Start ይበሉ።");
+        
+        // ተጠቃሚውን ቀጥታ ወደ ቦቱ መውሰጃ
+        window.location.href = telegramBotUrl;
+    }
+
         // ማሳሰቢያ፦ ለወደፊቱ ከቦቱ ጋር ሙሉ በሙሉ ክፍያውን ለማረጋገጥ እዚህ ጋር ኮድ ይጨመራል
         alert("ክፍያዎ በሂደት ላይ ነው! ወደ ካርቴላዎ እንወስድዎታለን።");
         
